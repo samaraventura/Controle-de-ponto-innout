@@ -10,6 +10,7 @@ if (count($_POST) > 0) {
         $user = $login->checkLogin(); // pode lançar exceção
         $_SESSION['user'] = $user;
         header("Location: DayRecordsController.php");
+    
     } catch (AppException $e) {
         $exception = $e; // agora será passada para a view
     }

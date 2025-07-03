@@ -22,14 +22,18 @@ class UserModel extends BaseModel
   {
     $this->validate();
     $this->is_admin = $this->is_admin ? 1 : 0;
+
     if (!$this->end_date) $this->end_date = null;
+
     $this->password = password_hash($this->password, PASSWORD_DEFAULT);
     return parent::insert();
   }
+
   public function updateUser()
   {
     $this->validate();
     $this->is_admin = $this->is_admin ? 1 : 0;
+
     if (!$this->end_date) $this->end_date = null;
     $this->password = password_hash($this->password, PASSWORD_DEFAULT);
     return parent::update();
@@ -45,6 +49,7 @@ class UserModel extends BaseModel
 
     if (!$this->email) {
       $errors['email'] = 'Email é obrigatório.';
+    
     } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
       $errors['email'] = "Email inválido ";
     }
@@ -56,16 +61,18 @@ class UserModel extends BaseModel
     if (!$this->confirm_password) {
       $errors['confirm_password'] = 'Confirmação de senha é obrigatório.';
     }
+    
     if (
       $this->password && $this->confirm_password
-      &&  $this->password !== $this->confirm_password
-    ) {
+      &&  $this->password !== $this->confirm_password) 
+    {
       $errors['password'] = 'As senhas não são iguais.';
       $errors['confirm_password'] = 'As senhas não são iguais.';
     }
 
     if (!$this->start_date) {
       $errors['start_date'] = "Data de Admissão é obrigatória";
+    
     } elseif (!DateTime::createFromFormat('Y-m-d', $this->start_date)) {
       $errors['start_date'] = "Data de Admissão está no formato incorreto";
     }

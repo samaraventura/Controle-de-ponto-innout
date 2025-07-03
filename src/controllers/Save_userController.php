@@ -37,10 +37,4 @@ if (count($_POST) === 0 && isset($_GET['update'])) {
     }
 }
 
-
-
-
-
-
-
 loadTemplateView('Save_userView', $userData + ['exception' => $exception]);

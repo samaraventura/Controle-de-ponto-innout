@@ -34,8 +34,10 @@ function getDayTemplateByOdds($regularRate, $extraRate, $lazyRate)
     $value = rand(0, 100);
     if ($value <=  $regularRate) {
         return $regularDayTemplate;
+    
     } else if ($value <= $regularRate + $extraRate) {
         return $extraHourDayTemplate;
+    
     } else {
         return $lazyDayTemplate;
     }
@@ -61,6 +63,7 @@ function populateWorkingHours($userId, $initialDate, $regularRate, $extraRate, $
                 'user_id' => $userId,
                 'work_date' => $currentDate->format('Y-m-d')
             ];
+
             $columns = array_merge($columns, $template);
             $workingHours = new WorkingHours($columns);
             $workingHours->insert();

@@ -16,12 +16,14 @@ $selectedPeriod = isset($_POST['period']) ? $_POST['period'] : $currentDate->for
 
 $periods = [];
 for ($yearDiff = 0; $yearDiff <= 2; $yearDiff++) {
+   
     $year = date('Y') - $yearDiff;
     $formatter = new IntlDateFormatter(
         'pt_BR',                    // Localização (português do Brasil)
         IntlDateFormatter::NONE,    // Formato da data (nenhum padrão)
         IntlDateFormatter::NONE     // Formato da hora (nenhum padrão)
     );
+
     $formatter->setPattern('MMMM \'de\' yyyy');  // Ex: "janeiro de 2025"
 
     for ($month = 12; $month >= 1; $month--) {
@@ -51,6 +53,7 @@ for ($day = 1; $day <= $lastday; $day++) {
     if ($registry) {
         $sumOfWorkedTime += $registry->worked_time;
         array_push($report, $registry);
+    
     } else {
         array_push($report, new WorkingHours([
             'work_date' => $date,

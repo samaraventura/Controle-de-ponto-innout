@@ -23,6 +23,7 @@ class Login extends BaseModel
         $this->validate();
         $user = UserModel::getOne(['email' => $this->email]);
         $user = !empty($user->values) ? (object) $user->values : null;
+        
             if (isset($user->end_date) && $user->end_date) {
                 throw new AppException('Usuário está desligado da empresa');
             }

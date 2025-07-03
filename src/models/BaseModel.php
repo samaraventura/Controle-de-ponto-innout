@@ -14,7 +14,9 @@ class BaseModel
     public  function loadFromArray($arr, $sanitize = true)
     {
         if ($arr) {
+
             $conn = Database::getConnection();
+
             foreach ($arr as $key => $value) {
                 $cleanValue = $value;
                 if ($sanitize && isset($cleanValue)) {
@@ -22,8 +24,10 @@ class BaseModel
                     $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
                     $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
                 }
+
                 $this->$key = $cleanValue;
             }
+
             $conn->close();
         }
     }
@@ -53,6 +57,7 @@ class BaseModel
     {
         $objects = [];
         $result = static::getResultSetFromSelect($filters, $columns);
+
         if ($result) {
             $class = get_called_class();
             while ($row = $result->fetch_assoc()) {
@@ -68,7 +73,9 @@ class BaseModel
         $sql = "SELECT $columns FROM "
             . static::$tableName
             . static::getFilters($filters);
+
         $result = Database::getResultFromQuery($sql);
+
         if ($result->num_rows === 0) {
             return null;
         } else {
@@ -79,8 +86,8 @@ class BaseModel
     public function insert()
     {
 
-        $sql = "INSERT INTO " . static::$tableName . " ("
-            . implode(",", static::$columns) . ") VALUES (";
+        $sql = "INSERT INTO " . static::$tableName . " (" . implode(",", static::$columns) . ") VALUES (";
+
         foreach (static::$columns as $col) {
             $sql .= static::getFormatedValue($this->$col) . ",";
         }
@@ -93,9 +100,11 @@ class BaseModel
     public function update()
     {
         $sql = "UPDATE " . static::$tableName . " SET ";
+
         foreach (static::$columns as $col) {
             $sql .= "{$col} = " . static::getFormatedValue($this->$col) . ",";
         }
+
         $sql[strlen($sql) - 1] = ' ';
         $sql .= "WHERE id = {$this->id}";
         Database::executeSQL($sql);
@@ -127,6 +136,7 @@ class BaseModel
                 if ($column == 'raw') {
 
                     $sql .= " AND {$value}";
+
                 } else {
 
                     $sql .= " AND $column = " .  static::getFormatedValue($value);
@@ -140,8 +150,10 @@ class BaseModel
     {
         if (is_null($value)) {
             return "null";
+
         } elseif (gettype($value) === 'string') {
             return "'$value'";
+            
         } else {
             return $value;
         }

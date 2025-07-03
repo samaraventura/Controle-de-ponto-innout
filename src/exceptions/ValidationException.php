@@ -1,6 +1,5 @@
 <?php
 
-
 class ValidationException extends AppException
 {
     private $errors = [];

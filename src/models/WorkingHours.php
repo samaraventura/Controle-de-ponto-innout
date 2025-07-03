@@ -51,8 +51,10 @@ class WorkingHours extends BaseModel
     $nextTime = $this->getNextTime();
     if ($nextTime === 'time1' || $nextTime === 'time3') {
       return 'exitTime';
+   
     } elseif ($nextTime === 'time2' || $nextTime === 'time4') {
       return 'workedInterval';
+    
     } else {
       return null;
     }
@@ -77,6 +79,7 @@ class WorkingHours extends BaseModel
     if ($this->id) {
       $this->update();
       $message = "Ponto registrado com sucesso";
+    
     } else {
       $this->insert();
       $message = "Ponto registrado com sucesso";
@@ -118,8 +121,10 @@ class WorkingHours extends BaseModel
 
     if (!$t1) {
       return (new DateTimeImmutable())->add($workday);
+    
     } elseif ($t4) {
       return $t4;
+    
     } else {
       $total = sumIntervals($workday, $this->getLunchInterval());
       return $t1->add($total);
@@ -167,6 +172,7 @@ class WorkingHours extends BaseModel
     $result = static::getResultSetFromSelect([
       'raw' => "work_date BETWEEN '{$startDate}' AND '{$endDate}'"
     ], "sum(worked_time) as sum");
+    
     return $result->fetch_assoc()['sum'];
   }
 
