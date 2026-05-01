@@ -1,6 +1,6 @@
 # ⏱️ Controle de Ponto - InNout
 
-Sistema web desenvolvido em **PHP puro** com estrutura **MVC**, para controle de ponto, autenticação de usuários e geração de relatórios mensais e gerenciais.
+Sistema completo de controle de ponto com autenticação, relatórios mensais e arquitetura MVC, focado em organização e escalabilidade.
 
 ## 💡 Funcionalidades
 
